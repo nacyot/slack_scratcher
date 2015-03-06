@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Users Import' do
+describe SlackScratcher::Model::Users do
   it '' do
     
   end

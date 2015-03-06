@@ -1,3 +1,5 @@
+$LOAD_PATH.unshift File.dirname(__FILE__)
+
 module SlackScratcher
-  autoload :Importer, 'slack_scratcher/importer'
+  autoload :Model, 'slack_scratcher/model'
 end
