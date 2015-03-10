@@ -1,7 +1,7 @@
 module SlackScratcher
-  module Model
-    class User
-      
+  module Adapter
+    class File
+
     end
   end
 end

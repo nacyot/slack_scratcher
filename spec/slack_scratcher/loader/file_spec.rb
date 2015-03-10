@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SlackScratcher::Model::Channel do
+describe SlackScratcher::Loader::File do
   it '' do
     
   end

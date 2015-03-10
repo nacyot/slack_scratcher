@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SlackScratcher::Model::User do
+describe SlackScratcher::Router do
   it '' do
     
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SlackScratcher::Model::Chat do
+describe SlackScratcher::Collector do
   it '' do
     
   end

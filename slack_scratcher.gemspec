@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
 
   # Dependency
   spec.add_dependency('elasticsearch', '~> 1')
+  spec.add_dependency('oj', '~> 2')
 
   # Development Dependency
   spec.add_development_dependency('guard')

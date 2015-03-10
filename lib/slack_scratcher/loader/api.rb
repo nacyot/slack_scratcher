@@ -1,7 +1,7 @@
 module SlackScratcher
-  module Model
-    class Chat
-      
+  module Loader
+    class Api
+
     end
   end
 end
