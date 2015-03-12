@@ -35,8 +35,7 @@ describe SlackScratcher::Loader::File do
         {
           user: 'U03O',
           type: 'message',
-          subtype: 'channel_join',
-          text: '<@U03BRBH8N|nacyot> has joined the channel',
+          text: '\uac15\uc81c \uc0ac\uc9c4 \uacf5\uac1c?',
           ts: '1421302869.000002'
         }
       end
