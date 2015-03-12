@@ -1,5 +1,5 @@
 module SlackScratcher
-  module Router
+  class Router
     def initialize(loader, adapter)
       @loader = loader
       @adapter = adapter
