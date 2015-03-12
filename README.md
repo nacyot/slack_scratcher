@@ -2,7 +2,31 @@
 
 ## Installation
 
+use gem command,
+
+```
+$ gem install slack_scratcher
+```
+
+or use bundle directive in Gemfile.
+
+```
+gem 'slack_scratcher'
+```
+
 ## Usage
+
+```
+require 'slack_scratcher'
+
+hosts = ['http://192.168.59.103:9200']
+
+adapter = SlackScratcher::Adapter::Elasticsearch.new(hosts, index: 'slack', type: 'logs')
+loader = SlackScratcher::Loader::File.new('./tmp/infovis-2015-03-06/')
+router = SlackScratcher::Router.new(loader, adapter)
+
+route.route
+```
 
 ## Contributors
 
