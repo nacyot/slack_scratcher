@@ -6,6 +6,8 @@ module SlackScratcher
     end
 
     def route
+      @adapter.ready_index
+
       @loader.each do |data|
         @adapter.send data
       end
