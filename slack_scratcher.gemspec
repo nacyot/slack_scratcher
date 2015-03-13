@@ -8,8 +8,10 @@ Gem::Specification.new do |spec|
   spec.licenses    = ['MIT']
   spec.platform    = Gem::Platform::RUBY
   spec.homepage    = 'http://slack-scratcher.nacyot.com'
-  spec.summary     = 'Route your slack exporting data to elasticsearch.'
-  spec.description = 'Route your slack exporting data to elasticsearch.'
+  spec.summary     = 'Slack log import tool'
+  spec.description =
+    'Importing slack log from exported files or API ' \
+    'to elasticsearch or other datastores'
 
   # Requirement
   spec.required_ruby_version = '>= 2.0.0'
@@ -35,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rspec')
   spec.add_development_dependency('coveralls')
   spec.add_development_dependency('rubocop')
+  spec.add_development_dependency('codeclimate-test-reporter')
 end
