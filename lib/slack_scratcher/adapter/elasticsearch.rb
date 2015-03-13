@@ -19,8 +19,10 @@ module SlackScratcher
       end
 
       def ready_index
-        create_index unless has_index?
-        put_timestamp_mapping unless has_timestamp_mapping?
+        unless index?
+          create_index
+          put_mapping
+        end
       end
 
       private
@@ -33,7 +35,7 @@ module SlackScratcher
         @metadata[:type]
       end
 
-      def has_index?
+      def index?
         @client.indices.exists(index: index)
       end
 
@@ -41,33 +43,22 @@ module SlackScratcher
         @client.indices.create(index: index)
       end
 
-      def has_timestamp_mapping?
-        attrs = { index: index, type: type }
-
-        mapping = @client.indices.get_mapping(attrs)
-        return false unless mapping.has_key?('slack')
-        log_mapping = mapping['slack']['mappings']['log']
-
-        return false unless log_mapping.has_key?('_timestamp')
-        return false unless log_mapping['_timestamp']['enabled'] == true
-
-        true
+      def put_mapping
+        @client.indices.put_mapping create_body(mapping)
       end
 
-      def put_timestamp_mapping
-        attrs = {
+      def mapping
+        { type =>
+          { '_timestamp' => { 'enabled' => true, 'path' => 'dataetime' },
+            '_id' => { 'path' => 'uid' } } }
+      end
+
+      def create_body(body = {})
+        {
           index: index,
           type: type,
-          body: timestamp_mapping
+          body: body
         }
-
-        @client.indices.put_mapping(attrs)
-      end
-
-      def timestamp_mapping
-        { type =>
-          { '_timestamp' =>
-            { 'enabled' => true, 'path' => 'dataetime' } } }
       end
 
       def format_bulk(data)
@@ -76,12 +67,12 @@ module SlackScratcher
 
       def format_log(log)
         { index:
-             {
-               _index: index,
-               _type: type,
-               data: log
-             }
-         }
+            {
+              _index: index,
+              _type: type,
+              data: log
+            }
+        }
       end
     end
   end
