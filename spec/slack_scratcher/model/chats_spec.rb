@@ -1,4 +1,4 @@
-require 'spec_helper'
+
 
 describe SlackScratcher::Model::Chats do
   describe 'Initialize object' do
@@ -8,15 +8,15 @@ describe SlackScratcher::Model::Chats do
       end.to raise_error(ArgumentError)
 
       expect do
-        SlackScratcher::Model::Chats.new([], '')
+        SlackScratcher::Model::Chats.new([], '', '')
       end.to raise_error(ArgumentError)
 
       expect do
-        SlackScratcher::Model::Chats.new('', {})
+        SlackScratcher::Model::Chats.new('', {}, '')
       end.to raise_error(ArgumentError)
 
       expect do
-        SlackScratcher::Model::Chats.new([], {})
+        SlackScratcher::Model::Chats.new([], {}, '')
       end.to_not raise_error
     end
   end
@@ -42,7 +42,8 @@ describe SlackScratcher::Model::Chats do
       }
     end
 
-    let(:chats) { SlackScratcher::Model::Chats.new(datas, users) }
+    let(:channel) { 'general' }
+    let(:chats) { SlackScratcher::Model::Chats.new(datas, users, channel) }
     let(:log) { chats.refined_data.first }
     let(:text) { chats.refined_data.first['text'] }
 
@@ -60,8 +61,8 @@ describe SlackScratcher::Model::Chats do
     end
 
     it "should have message's time" do
-      expect(log['datetime']).to be_kind_of(Time)
-      expect(log['datetime'].iso8601).to eq('2015-01-15T15:21:09+09:00')
+      expect(log['datetime']).to be_kind_of(String)
+      expect(log['datetime']).to eq('2015-01-15T15:21:09+09:00')
     end
 
     describe 'refine text' do

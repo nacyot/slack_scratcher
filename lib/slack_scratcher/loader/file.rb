@@ -21,14 +21,19 @@ module SlackScratcher
 
       private
 
+      def get_channel_dir(path)
+        File.dirname(path).split('/').last
+      end
+
       def load_users
         users = Oj.load(::File.read("#{@target}/users.json"))
         users.map { |data| { data['id'] => data } }.inject({}, :merge)
       end
 
       def parse_log_file(log_file)
+        channel = get_channel_dir(log_file)
         logs = Oj.load(::File.read(log_file))
-        SlackScratcher::Model::Chats.new logs, @users
+        SlackScratcher::Model::Chats.new(logs, @users, channel).refined_data
       end
 
       def all_files
