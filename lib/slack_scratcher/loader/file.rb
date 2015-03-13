@@ -13,9 +13,8 @@ module SlackScratcher
       end
 
       def each
-        all_files.each do |file|
-          chats = parse_log_file(file)
-          yield chats.refined_data
+        files.each do |file|
+          yield parse_log_file(file)
         end
       end
 
@@ -36,17 +35,17 @@ module SlackScratcher
         SlackScratcher::Model::Chats.new(logs, @users, channel).refined_data
       end
 
-      def all_files
-        list_channels.inject([]) do |arr, channel|
-          arr + list_log_files(channel)
+      def files
+        channels.inject([]) do |arr, channel|
+          arr + log_files(channel)
         end
       end
 
-      def list_channels
+      def channels
         Dir["#{@target}/*/"]
       end
 
-      def list_log_files(channel)
+      def log_files(channel)
         Dir["#{channel}*.json"]
       end
     end

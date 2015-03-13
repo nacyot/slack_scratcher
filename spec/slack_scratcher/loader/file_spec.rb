@@ -27,10 +27,11 @@ describe SlackScratcher::Loader::File do
     let(:file) { SlackScratcher::Loader::File.new('/') }
 
     before :each do
-      allow(file).to receive(:all_files) do
+      allow(file).to receive(:files) do
         ["/general/2015-03-15.json", "/general/2015-03-16.json"]
       end
 
+      # TODO: deprecated
       allow(file).to receive(:parse_log_file) do
         {
           user: 'U03O',
