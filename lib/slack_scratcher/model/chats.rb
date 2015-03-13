@@ -29,9 +29,10 @@ module SlackScratcher
         log['name'] = user['name']
         log['profile_image'] = user['profile']['image_32']
         log['text'] = refine_text(log['text'])
-        log['channel'] = @channel['name']
-        log['channel_id'] = @channel['id']
+        log['channel'] = @channel[:name]
+        log['channel_id'] = @channel[:id]
         log['datetime'] = Time.at(log['ts'].to_f).iso8601
+
         log['uid'] = create_uid(log)
 
         log
@@ -41,7 +42,7 @@ module SlackScratcher
       end
 
       def create_uid(log)
-        "#{log['datetime']}-#{log['channel']}-#{log['user']}"
+        "#{log['datetime']}-#{log['channel_id']}-#{log['user']}"
       end
 
       def refine_text(text)
