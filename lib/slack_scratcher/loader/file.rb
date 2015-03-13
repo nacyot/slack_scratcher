@@ -9,8 +9,8 @@ module SlackScratcher
         fail ArgumentError unless ::File.directory?(target_dir)
 
         @target = target_dir
-        @users = load_users
-        @channels = load_channels
+        @users = users
+        @channels = channels
       end
 
       def each
@@ -27,20 +27,19 @@ module SlackScratcher
         ::File.dirname(path).split('/').last
       end
 
-      def load_users
-        target = "#{@target}/users.json"
-        fail SlackScratcher::Error::FileNotFound unless ::File.exist? target
-
-        users = Oj.load(::File.read(target))
-        index_data users, 'id'
+      def users
+        load "#{@target}/users.json", 'id'
       end
 
-      def load_channels
-        target = "#{@target}/channels.json"
+      def channels
+        load "#{@target}/channels.json", 'name'
+      end
+
+      def load(target, index_column)
         fail SlackScratcher::Error::FileNotFound unless ::File.exist? target
 
         channels = Oj.load(::File.read(target))
-        index_data channels, 'name'
+        index_data channels, index_column
       end
 
       def index_data(dataset, column)
