@@ -1,4 +1,4 @@
-
+require 'spec_helper'
 
 describe SlackScratcher::Model::Chats do
   describe 'Initialize object' do
@@ -12,11 +12,11 @@ describe SlackScratcher::Model::Chats do
       end.to raise_error(ArgumentError)
 
       expect do
-        SlackScratcher::Model::Chats.new('', {}, '')
+        SlackScratcher::Model::Chats.new('', '', {})
       end.to raise_error(ArgumentError)
 
       expect do
-        SlackScratcher::Model::Chats.new([], {}, '')
+        SlackScratcher::Model::Chats.new([], {}, {})
       end.to_not raise_error
     end
   end
@@ -42,8 +42,8 @@ describe SlackScratcher::Model::Chats do
       }
     end
 
-    let(:channel) { 'general' }
-    let(:chats) { SlackScratcher::Model::Chats.new(datas, users, channel) }
+    let(:channel) { { 'name' => 'general', 'id' => 'C23874' } }
+    let(:chats) { SlackScratcher::Model::Chats.new(datas, channel, users) }
     let(:log) { chats.refined_data.first }
     let(:text) { chats.refined_data.first['text'] }
 

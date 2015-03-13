@@ -3,14 +3,15 @@ module SlackScratcher
     class Chats
       attr_reader :refined_data, :data
 
-      def initialize(data, users, channel)
-        if !data.is_a?(Array) || !users.is_a?(Hash) || !channel.is_a?(String)
+      def initialize(data, channel, users)
+        if !data.is_a?(Array) || !users.is_a?(Hash) || !channel.is_a?(Hash)
           fail ArgumentError
         end
 
         @data = data
         @users = users
         @channel = channel
+
         @refined_data = refine
       end
 
@@ -26,7 +27,8 @@ module SlackScratcher
         log['name'] = user['name']
         log['profile_image'] = user['profile']['image_32']
         log['text'] = refine_text(log['text'])
-        log['channel'] = @channel
+        log['channel'] = @channel['name']
+        log['channel_id'] = @channel['id']
         log['datetime'] = Time.at(log['ts'].to_f).iso8601
         log
       rescue SlackScratcher::Error::UserNotFoundError
