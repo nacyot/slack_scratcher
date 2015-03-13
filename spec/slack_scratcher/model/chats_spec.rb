@@ -62,7 +62,8 @@ describe SlackScratcher::Model::Chats do
 
     it "should have message's time" do
       expect(log['datetime']).to be_kind_of(String)
-      expect(log['datetime']).to eq('2015-01-15T15:21:09+09:00')
+      expect(Time.parse(log['datetime'])).to(
+        eq(Time.parse('2015-01-15T15:21:09+09:00')))
     end
 
     describe 'refine text' do
