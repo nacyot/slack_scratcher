@@ -6,6 +6,7 @@ module SlackScratcher
   autoload :Loader, 'slack_scratcher/loader'
   autoload :Adapter, 'slack_scratcher/adapter'
   autoload :Router, 'slack_scratcher/router'
+  autoload :Collector, 'slack_scratcher/collector'
   autoload :Error, 'slack_scratcher/error'
 
   def self.logger
