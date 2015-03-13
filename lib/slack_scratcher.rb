@@ -1,4 +1,5 @@
 $LOAD_PATH.unshift File.dirname(__FILE__)
+require 'logger'
 
 module SlackScratcher
   autoload :Model, 'slack_scratcher/model'
@@ -6,4 +7,8 @@ module SlackScratcher
   autoload :Adapter, 'slack_scratcher/adapter'
   autoload :Router, 'slack_scratcher/router'
   autoload :Error, 'slack_scratcher/error'
+
+  def self.logger
+    @logger ||= ::Logger.new(STDOUT)
+  end
 end

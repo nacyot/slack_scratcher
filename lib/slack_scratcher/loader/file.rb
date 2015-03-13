@@ -14,8 +14,10 @@ module SlackScratcher
 
       def each
         files.each do |file|
-          yield parse_log_file(file)
+          yield parse_log_file(file), file
         end
+
+        true
       end
 
       private
