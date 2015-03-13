@@ -5,6 +5,8 @@ describe SlackScratcher::Loader::File do
     allow(File).to receive(:read) do
       '[{"id": "GEHJ8EK18","name": "nacyot"}]'
     end
+
+    allow(File).to receive(:exist?) { true }
   end
 
   describe 'Initialize object' do
@@ -41,8 +43,12 @@ describe SlackScratcher::Loader::File do
         }
       end
 
-      allow(file).to receive(:load_users) do
+      allow(file).to receive(:users) do
         { '1' => { name: 'name1' }, '2' => { 'name' => 'name2' } }
+      end
+
+      allow(file).to receive(:channels) do
+        { 'general' => { id: 'C382HO' } }
       end
     end
 
