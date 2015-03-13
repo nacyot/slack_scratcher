@@ -10,8 +10,11 @@ module SlackScratcher
         @metadata = metadata
       end
 
-      def send(data)
-        @client.bulk format_bulk(data)
+      def send(raw_data)
+        data = format_bulk(raw_data)
+        @client.bulk data unless raw_data.empty?
+      rescue ::Elasticsearch::Transport::Transport::Errors::BadRequest => error
+        puts error
       end
 
       def timestamp_of_last_channel_log(channel_name)

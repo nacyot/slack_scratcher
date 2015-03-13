@@ -18,7 +18,9 @@ module SlackScratcher
       private
 
       def refine
-        @data.map { |log| refine_data(log) }
+        @data
+          .map { |log| refine_data(log) }
+          .select { |log| !log['uid'].nil? }
       end
 
       def refine_data(log)
@@ -30,10 +32,16 @@ module SlackScratcher
         log['channel'] = @channel['name']
         log['channel_id'] = @channel['id']
         log['datetime'] = Time.at(log['ts'].to_f).iso8601
+        log['uid'] = create_uid(log)
+
         log
       rescue SlackScratcher::Error::UserNotFoundError
         user = { 'user' => 'undefined' }
         user['profile'] = { 'image_32' => '' }
+      end
+
+      def create_uid(log)
+        "#{log['datetime']}-#{log['channel']}-#{log['user']}"
       end
 
       def refine_text(text)
