@@ -9,7 +9,9 @@ describe SlackScratcher::Loader::File do
     allow(File).to receive(:exist?) { true }
   end
 
-  describe 'Initialize object' do
+  # Public methods
+
+  describe '#initialize' do
     it 'requires dir argument - fail example' do
       target = '3279#@%y.,oud'
       expect do
@@ -25,7 +27,7 @@ describe SlackScratcher::Loader::File do
     end
   end
 
-  describe 'File is Enumerable' do
+  describe '#each' do
     let(:file) { SlackScratcher::Loader::File.new('/') }
 
     before :each do

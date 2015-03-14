@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe SlackScratcher::Model::Chats do
-  describe 'Initialize object' do
-    it 'requires data and users arguments' do
+
+  # Public methods
+
+  describe '#initialize' do
+    it 'requires data, channel, users arguments' do
       expect do
         SlackScratcher::Model::Chats.new
       end.to raise_error(ArgumentError)
@@ -21,7 +24,9 @@ describe SlackScratcher::Model::Chats do
     end
   end
 
-  describe 'refine method' do
+  # Private methods
+
+  describe '#refine' do
     let(:datas) do
       [{ 'user' => 'U03O',
          'type' => 'message',
