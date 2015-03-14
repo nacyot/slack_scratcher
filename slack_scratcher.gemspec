@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency('slack-api', '~> 1')
 
   # Development Dependency
+  spec.add_development_dependency('dotenv')
   spec.add_development_dependency('guard')
   spec.add_development_dependency('guard-rspec')
   spec.add_development_dependency('rspec')
