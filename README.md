@@ -1,10 +1,24 @@
 # Slack Scratcher
 
-[![Build Status](https://travis-ci.org/nacyot/slack_scratcher.svg?branch=master)](https://travis-ci.org/nacyot/slack_scratcher)
-[![Coverage Status](https://coveralls.io/repos/nacyot/slack_scratcher/badge.svg)](https://coveralls.io/r/nacyot/slack_scratcher)
-[![Code Climate](https://codeclimate.com/github/nacyot/slack_scratcher/badges/gpa.svg)](https://codeclimate.com/github/nacyot/slack_scratcher)
-[![Inline docs](http://inch-ci.org/github/nacyot/slack_scratcher.svg?branch=master)](http://inch-ci.org/github/nacyot/slack_scratcher)
-[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/nacyot/slack_scratcher/master)
+[![Build Status][travis_image]][travis_link]
+[![Coverage Status][coveralls_image]][coveralls_link]
+[![Code Climate][codeclimate_link]][codeclimate_link]
+[![Inline docs][inch_image]][inch_link]
+[![Yard Docs][yard_image]][yard_link]
+[![Dependency Status][gemnasium_image]][gemnasium_link]
+
+[travis_image]: https://travis-ci.org/nacyot/slack_scratcher.svg?branch=master
+[travis_link]: https://travis-ci.org/nacyot/slack_scratcher
+[coveralls_image]: https://coveralls.io/repos/nacyot/slack_scratcher/badge.svg
+[coveralls_link]: https://coveralls.io/r/nacyot/slack_scratcher
+[codeclimate_image]: https://codeclimate.com/github/nacyot/slack_scratcher/badges/gpa.svg
+[codeclimaet_link]: https://codeclimate.com/github/nacyot/slack_scratcher
+[inch_image]: http://inch-ci.org/github/nacyot/slack_scratcher.svg?branch=master
+[inch_link]: http://inch-ci.org/github/nacyot/slack_scratcher
+[yard_image]: http://img.shields.io/badge/yard-docs-blue.svg
+[yard_link]: http://www.rubydoc.info/github/nacyot/slack_scratcher/master
+[gemnasium_image]: https://gemnasium.com/nacyot/slack_scratcher.svg
+[gemnasium_link]: https://gemnasium.com/nacyot/slack_scratcher
 
 ## Installation
 
