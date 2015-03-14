@@ -34,10 +34,19 @@ Gem::Specification.new do |spec|
 
   # Development Dependency
   spec.add_development_dependency('dotenv')
+
+  # for Test
   spec.add_development_dependency('guard')
   spec.add_development_dependency('guard-rspec')
   spec.add_development_dependency('rspec')
+
+  # Test Coverage
   spec.add_development_dependency('coveralls')
-  spec.add_development_dependency('rubocop')
   spec.add_development_dependency('codeclimate-test-reporter')
+
+  # Style Guide
+  spec.add_development_dependency('rubocop')
+
+  # Documentation
+  spec.add_development_dependency('inch')
 end
