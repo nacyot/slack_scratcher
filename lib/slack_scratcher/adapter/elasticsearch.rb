@@ -51,9 +51,22 @@ module SlackScratcher
       end
 
       def mapping
-        { type =>
-          { '_timestamp' => { 'enabled' => true, 'path' => 'dataetime' },
-            '_id' => { 'path' => 'uid' } } }
+        {
+          type => {
+            '_timestamp' => {
+              'enabled' => true,
+              'path' => 'dataetime'
+            },
+            '_id' => {
+              'path' => 'uid'
+            },
+            '_routing' => {
+              'required' => true,
+              'path' => 'channel_id'
+            }
+          }
+        }
+      end
       end
 
       def create_body(body = {})
