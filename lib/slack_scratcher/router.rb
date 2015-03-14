@@ -3,7 +3,10 @@ module SlackScratcher
   # to adapter
   #
   # @since 0.0.1
+  # @attr_reader [Boolean] Keep going on loop?
   class Router
+    attr_accessor :loop
+
     # Initalize SlackScratcher::Router object
     #
     # @param [SlackScratcher::Loader::Base] loader
@@ -14,8 +17,12 @@ module SlackScratcher
     #
     # @return [SlackScratcher::Router] Router object
     def initialize(loader, adapter)
+      fail ArgumentError unless loader.is_a?(SlackScratcher::Loader::Base)
+      fail ArgumentError unless adapter.is_a?(SlackScratcher::Adapter::Base)
+
       @loader = loader
       @adapter = adapter
+      @loop = true
     end
 
     # Route logs to adapter
@@ -32,7 +39,10 @@ module SlackScratcher
     # @return [Boolean] If loop interrupted, it return false
     def route_loop
       ready
-      loop { _route }
+      loop do
+        break unless loop
+        _route
+      end
     rescue Interrupt => error
       SlackScratcher.logger.info error
       false
