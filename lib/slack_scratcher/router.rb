@@ -21,11 +21,15 @@ module SlackScratcher
       @adapter.ready_index
     end
 
-    def _rotue
+    def _route
       @loader.each(@adapter) do |data, metadata|
-        @adapter.send data
-        SlackScratcher.logger.info "* #{metadata} is routed."
-      end      
+        if data.empty?
+          SlackScratcher.logger.info "* #{metadata} is empty. Nothing happen."
+        else
+          @adapter.send data
+          SlackScratcher.logger.info "* #{metadata} is routed."
+        end
+      end
     end
   end
 end
