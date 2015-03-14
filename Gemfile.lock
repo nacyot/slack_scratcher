@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slack_scratcher (0.1)
+    slack_scratcher (0.2)
       elasticsearch (~> 1)
       faraday (= 0.9.0)
       oj (~> 2)

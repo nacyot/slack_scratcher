@@ -1,7 +1,8 @@
 module SlackScratcher
   module Adapter
-    class File
-
+    # File adapter for storing slack logs.
+    # @note Not yet implemented
+    class File < SlackScratcher::Adapter::Base
     end
   end
 end

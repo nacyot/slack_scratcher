@@ -1,3 +1,4 @@
 module SlackScratcher
-  VERSION = '0.1'
+  # Current version of SlackScratcher
+  VERSION = '0.2'
 end
