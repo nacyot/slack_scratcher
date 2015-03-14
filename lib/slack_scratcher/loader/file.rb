@@ -54,18 +54,16 @@ module SlackScratcher
       def parse_log_file(log_file)
         channel = channel_info(log_file)
         logs = Oj.load(::File.read(log_file))
-        chats = SlackScratcher::Model::Chats.new(logs, channel, @users)
-
-        chats.refined_data
+        SlackScratcher::Model::Chats.new(logs, channel, @users).refined_data
       end
 
       def files
-        channels.inject([]) do |arr, channel|
+        channel_dirs.inject([]) do |arr, channel|
           arr + log_files(channel)
         end
       end
 
-      def channels
+      def channel_dirs
         Dir["#{@target}/*/"]
       end
 
