@@ -11,6 +11,7 @@ module SlackScratcher
   autoload :Adapter, 'slack_scratcher/adapter'
   autoload :Router, 'slack_scratcher/router'
   autoload :Error, 'slack_scratcher/error'
+  autoload :Helper, 'slack_scratcher/helper'
 
   def self.logger
     @logger ||= ::Logger.new(STDOUT)

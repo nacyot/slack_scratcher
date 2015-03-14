@@ -52,11 +52,10 @@ module SlackScratcher
       end
 
       def users
-        validate_response Slack.users_list
-      end
+        wait
 
-      def user_info(user_id)
-        validate_response Slack.users_info(user: user_id)
+        user_list = validate_response(Slack.users_list, :members)
+        SlackScratcher::Helper.index_data user_list, 'id'
       end
 
       def channel_history(channel_id, from, to = Time.now)

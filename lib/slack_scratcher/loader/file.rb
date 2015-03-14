@@ -39,11 +39,7 @@ module SlackScratcher
         fail SlackScratcher::Error::FileNotFound unless ::File.exist? target
 
         channels = Oj.load(::File.read(target))
-        index_data channels, index_column
-      end
-
-      def index_data(dataset, column)
-        dataset.map { |data| { data[column] => data } }.inject({}, :merge)
+        SlackScratcher::Helper.index_data channels, index_column
       end
 
       def channel_info(log_file)
