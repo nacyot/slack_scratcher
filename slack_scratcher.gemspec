@@ -44,7 +44,6 @@ Gem::Specification.new do |spec|
 
   # Test Coverage
   spec.add_development_dependency('coveralls')
-  spec.add_development_dependency('codeclimate-test-reporter')
 
   # Style Guide
   spec.add_development_dependency('rubocop')

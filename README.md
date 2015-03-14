@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/nacyot/slack_scratcher.svg?branch=master)](https://travis-ci.org/nacyot/slack_scratcher)
 [![Coverage Status](https://coveralls.io/repos/nacyot/slack_scratcher/badge.svg)](https://coveralls.io/r/nacyot/slack_scratcher)
-[![Test Coverage](https://codeclimate.com/github/nacyot/slack_scratcher/badges/coverage.svg)](https://codeclimate.com/github/nacyot/slack_scratcher)
 [![Code Climate](https://codeclimate.com/github/nacyot/slack_scratcher/badges/gpa.svg)](https://codeclimate.com/github/nacyot/slack_scratcher)
 [![Inline docs](http://inch-ci.org/github/nacyot/slack_scratcher.svg?branch=master)](http://inch-ci.org/github/nacyot/slack_scratcher)
 [![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/github/nacyot/slack_scratcher/master)

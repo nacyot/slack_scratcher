@@ -21,8 +21,6 @@ GEM
       parser (>= 2.2.0.pre.3, < 3.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
-    codeclimate-test-reporter (0.4.7)
-      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coveralls (0.7.11)
       multi_json (~> 1.10)
@@ -159,7 +157,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  codeclimate-test-reporter
   coveralls
   dotenv
   factory_girl
