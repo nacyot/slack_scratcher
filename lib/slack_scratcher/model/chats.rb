@@ -24,9 +24,9 @@ module SlackScratcher
       end
 
       def refine_data(log)
-        user = find_user(log['user']) unless user
+        user = find_user(log) unless user
 
-        log['name'] = user['name']
+        log['username'] = user['name']
         log['profile_image'] = user['profile']['image_32']
         log['text'] = refine_text(log['text'])
         log['channel'] = @channel[:name]
@@ -36,13 +36,10 @@ module SlackScratcher
         log['uid'] = create_uid(log)
 
         log
-      rescue SlackScratcher::Error::UserNotFoundError
-        user = { 'user' => 'undefined' }
-        user['profile'] = { 'image_32' => '' }
       end
 
       def create_uid(log)
-        "#{log['datetime']}-#{log['channel_id']}-#{log['user']}"
+        "#{log['datetime']}-#{log['channel_id']}-#{log['username']}"
       end
 
       def refine_text(text)
@@ -53,11 +50,27 @@ module SlackScratcher
           .gsub(%r{<(http(s)?://.*?)>}) { $1 }
       end
 
-      def find_user(user)
-        result = @users[user]
+      def find_user(log)
+        return bot_user(log) if log.key?('username')
+
+        result = @users[log['user']]
 
         fail SlackScratcher::Error::UserNotFoundError if result.nil?
         result
+      rescue SlackScratcher::Error::UserNotFoundError
+        unknown_user
+      end
+
+      def undefined_user
+        user = { 'name' => '_unknown_' }
+        user['profile'] = { 'image_32' => '' }
+        user
+      end
+
+      def bot_user(log)
+        user = { 'name' => log['username'] }
+        user['profile'] = { 'image_32' => log['icons']['image_48'] }
+        user
       end
     end
   end
