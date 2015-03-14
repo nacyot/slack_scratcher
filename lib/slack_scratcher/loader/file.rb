@@ -13,7 +13,7 @@ module SlackScratcher
         @channels = channels
       end
 
-      def each
+      def each(_ = nil)
         files.each do |file|
           yield parse_log_file(file), file
         end

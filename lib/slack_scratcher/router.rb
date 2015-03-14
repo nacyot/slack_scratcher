@@ -6,12 +6,26 @@ module SlackScratcher
     end
 
     def route
-      @adapter.ready_index
+      ready
+      _route
+    end
 
-      @loader.each do |data, file|
+    def route_loop
+      ready
+      loop { _route }
+    end
+
+    private
+
+    def ready
+      @adapter.ready_index
+    end
+
+    def _rotue
+      @loader.each(@adapter) do |data, metadata|
         @adapter.send data
-        SlackScratcher.logger.info "* #{file} is routed."
-      end
+        SlackScratcher.logger.info "* #{metadata} is routed."
+      end      
     end
   end
 end
