@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency('elasticsearch', '~> 1')
   spec.add_dependency('oj', '~> 2')
   spec.add_dependency('slack-api', '~> 1')
+  spec.add_dependency('faraday', '= 0.9.0')
 
   # Development Dependency
   spec.add_development_dependency('dotenv')
