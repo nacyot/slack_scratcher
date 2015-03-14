@@ -9,21 +9,35 @@ module SlackScratcher
 
       def initialize(token = nil)
         authenticate_slack(token)
-        @users = users
       end
 
       def each(adapter)
         active_channels do |channel|
           wait
-          from = adapter.timestamp_of_last_channel_log(channel.name)
+        @users || set_users
 
           yield parse_log(channel['id'], from), [channel['name'], from, to]
         end
+
+      private
+
+      def set_users
+        @users = users
+        SlackScratcher.logger.info "* Users list refreshed"
+      end
+
+      def check_users(logs)
+        logs
+          .select { |log| log.key? 'user' }
+          .map { |log| log['user'] }
+          .any? { |user| @users[user].nil? }
       end
 
       def parse_log(channel, from)
-        logs = channel_history(channel_id, from, to)
-        fail SlackScratcher::Error::ApiError unless logs.key? 'messages'
+        logs = channel_history(channel[:id], from)
+        if check_users(logs)
+          set_users
+        end
         SlackScratcher::Model::Chats.new(logs, channel, @users).refined_data
       end
 
