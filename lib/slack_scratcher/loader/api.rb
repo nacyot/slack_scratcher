@@ -5,15 +5,13 @@ module SlackScratcher
     class Api
       include Enumerable
 
-      WAIT_TIME = 5
+      WAIT_TIME = 1
 
       def initialize(token = nil)
         authenticate_slack(token)
       end
 
       def each(adapter)
-        active_channels do |channel|
-          wait
         @users || set_users
 
           yield parse_log(channel['id'], from), [channel['name'], from, to]
@@ -53,6 +51,8 @@ module SlackScratcher
       end
 
       def active_channels
+        wait
+
         response = validate_response(Slack.channels_list)
         index_channels filter_active_channels(response['channels'])
       end
@@ -73,6 +73,7 @@ module SlackScratcher
       end
 
       def channel_history(channel_id, from, to = Time.now)
+        wait
 
         attrs = {
           channel: channel_id,
