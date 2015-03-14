@@ -81,13 +81,13 @@ module SlackScratcher
           count: 1000
         }
 
-        validate_response Slack.channels_history(attrs)
+        validate_response Slack.channels_history(attrs), :messages
       end
 
-      def validate_response(response)
-        puts response
+      def validate_response(response, key = nil)
         fail SlackScratcher::Error::ApiError unless response['ok'] == true
-        response
+        return response unless key
+        response[key.to_s]
       end
 
       def wait
