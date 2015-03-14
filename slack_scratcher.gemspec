@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
 
   # Development Dependency
   spec.add_development_dependency('dotenv')
+  spec.add_development_dependency('rake')
 
   # for Test
   spec.add_development_dependency('guard')
@@ -49,4 +50,5 @@ Gem::Specification.new do |spec|
 
   # Documentation
   spec.add_development_dependency('inch')
+  spec.add_development_dependency('yard')
 end
