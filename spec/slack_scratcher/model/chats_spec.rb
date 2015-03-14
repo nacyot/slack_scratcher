@@ -56,7 +56,7 @@ describe SlackScratcher::Model::Chats do
     end
 
     it "should have user's information" do
-      expect(log).to include('name' => 'nacyot')
+      expect(log).to include('username' => 'nacyot')
       expect(log).to include('profile_image' => 'nacyot.png')
     end
 
