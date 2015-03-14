@@ -14,8 +14,13 @@ module SlackScratcher
       def each(adapter)
         @users || set_users
 
-          yield parse_log(channel['id'], from), [channel['name'], from, to]
+        active_channels.each do |channel|
+          from = adapter.timestamp_of_last_channel_log(channel[:name])
+          yield parse_log(channel, from), channel
         end
+
+        true
+      end
 
       private
 
