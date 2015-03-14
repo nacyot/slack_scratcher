@@ -22,7 +22,7 @@ module SlackScratcher
         log = @client.search request_body
 
         return 0 if log['hits']['total'] == 0
-        log['hits']['hits'][0]['_source']['ts'].to_f
+        log['hits']['hits'][0]['_source']['ts']
       end
 
       def ready_index

@@ -59,10 +59,11 @@ module SlackScratcher
       end
 
       def channel_history(channel_id, from, to = Time.now)
+
         attrs = {
           channel: channel_id,
-          oldest: from.to_i,
-          latest: to.to_i,
+          oldest: from,
+          latest: to,
           count: 1000
         }
 
