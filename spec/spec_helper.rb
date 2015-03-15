@@ -1,5 +1,6 @@
 require 'slack_scratcher'
 require 'coveralls'
+require 'rspec/its'
 
 Coveralls.wear!
 
