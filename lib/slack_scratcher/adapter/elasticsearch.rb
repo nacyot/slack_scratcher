@@ -23,7 +23,10 @@ module SlackScratcher
       #
       # @return [SlackScratcher::Adapter::Elasticsearh]
       #   Elasticsearch adapter object
-      def initialize(hosts, metadata)
+      def initialize(hosts, metadata = {})
+        fail ArgumentError if !hosts.is_a?(Array) || !metadata.is_a?(Hash)
+        fail ArgumentError if !metadata.key?(:index) || !metadata.key?(:type)
+
         @client = ::Elasticsearch::Client.new hosts: hosts
         @metadata = metadata
       end
@@ -43,27 +46,10 @@ module SlackScratcher
       # @return [Boolean] If raw_data is empty, it returns false
       def store(raw_data)
         data = format_bulk(raw_data)
-        @client.bulk data unless raw_data.empty?
+        return client.bulk data unless raw_data.empty?
         false
       rescue ::Elasticsearch::Transport::Transport::Errors::BadRequest => error
         puts error
-      end
-
-      # Get last logs' timestamp of specific channel from saved data
-      #
-      # @param [String] channel_name channel name
-      #
-      # @example Get saved last log's timestamp of general channel
-      #   adapter.timestamp_of_last_log 'general' #=> '1426337804.820065'
-      #
-      # @return [String] Timestamp of last log
-      # @return [String] If there isn't saved log, it returns '0'
-      def timestamp_of_last_channel_log(channel_name)
-        request_body = create_body(query_for_last_log(channel_name))
-        log = @client.search request_body
-
-        return '0' if log['hits']['total'] == 0
-        log['hits']['hits'][0]['_source']['ts']
       end
 
       # Create index and set mapping for saving slack log data
@@ -81,6 +67,23 @@ module SlackScratcher
         true
       end
 
+      # Get last logs' timestamp of specific channel from saved data
+      #
+      # @param [String] channel_name channel name
+      #
+      # @example Get saved last log's timestamp of general channel
+      #   adapter.timestamp_of_last_log 'general' #=> '1426337804.820065'
+      #
+      # @return [String] Timestamp of last log
+      # @return [String] If there isn't saved log, it returns '0'
+      def timestamp_of_last_channel_log(channel_name)
+        request_body = create_body(query_for_last_log(channel_name))
+        log = client.search request_body
+
+        return '0' if log['hits']['total'] == 0
+        log['hits']['hits'][0]['_source']['ts']
+      end
+
       private
 
       # @private
@@ -95,17 +98,17 @@ module SlackScratcher
 
       # @private
       def index?
-        @client.indices.exists(index: index)
+        client.indices.exists(index: index)
       end
 
       # @private
       def create_index
-        @client.indices.create(index: index)
+        client.indices.create(index: index)
       end
 
       # @private
       def put_mapping
-        @client.indices.put_mapping create_body(mapping)
+        client.indices.put_mapping create_body(mapping)
       end
 
       # @private

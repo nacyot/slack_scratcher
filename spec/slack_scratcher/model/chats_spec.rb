@@ -6,21 +6,13 @@ describe SlackScratcher::Model::Chats do
 
   describe '#initialize' do
     it 'requires data, channel, users arguments' do
-      expect do
-        SlackScratcher::Model::Chats.new
-      end.to raise_error(ArgumentError)
+      target = SlackScratcher::Model::Chats
+      error = ArgumentError
 
-      expect do
-        SlackScratcher::Model::Chats.new([], '', '')
-      end.to raise_error(ArgumentError)
-
-      expect do
-        SlackScratcher::Model::Chats.new('', '', {})
-      end.to raise_error(ArgumentError)
-
-      expect do
-        SlackScratcher::Model::Chats.new([], {}, {})
-      end.to_not raise_error
+      expect { target.new }.to raise_error(error)
+      expect { target.new([], '', '') }.to raise_error(error)
+      expect { target.new('', '', {}) }.to raise_error(error)
+      expect { target.new([], {}, {}) }.to_not raise_error
     end
   end
 
