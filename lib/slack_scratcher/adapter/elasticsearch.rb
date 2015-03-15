@@ -28,20 +28,20 @@ module SlackScratcher
         @metadata = metadata
       end
 
-      # Send data into elastisearch host.
+      # store data into elastisearch host.
       #
       # @see http://www.rubydoc.info/gems/elasticsearch-api/Elasticsearch/API/Actions#bulk-instance_method
       # @param [Array] raw_data slack logs which parsed by loader
       #
       # @example Send log from loader to elastisearch adapter
-      #   loader.each { |data| adapter.send data }
+      #   loader.each { |data| adapter.store data }
       #
       # @raise [Elasticsearch::Transport::Transport::Errors::BadRequest]
       #   It raise when request is fail
       #
       # @return [Hash] Deserialized Elasticsearch response
       # @return [Boolean] If raw_data is empty, it returns false
-      def send(raw_data)
+      def store(raw_data)
         data = format_bulk(raw_data)
         @client.bulk data unless raw_data.empty?
         false

@@ -61,7 +61,7 @@ module SlackScratcher
         if data.empty?
           SlackScratcher.logger.info "* #{metadata} is empty. Nothing happen."
         else
-          @adapter.send data
+          @adapter.store data
           SlackScratcher.logger.info "* #{metadata} is routed."
         end
       end

@@ -13,7 +13,7 @@ describe SlackScratcher::Router do
     allow(mock).to receive(:is_a?).and_return(true)
     allow(mock).to receive(:ready_index).and_return(true)
     allow(mock).to receive(:each)
-    allow(mock).to receive(:send).and_return(true)
+    allow(mock).to receive(:store).and_return(true)
     mock
   end
 
@@ -37,9 +37,9 @@ describe SlackScratcher::Router do
       router.route
     end
 
-    specify 'when there is data, read from loader and send to adapter' do
+    specify 'when there is data, read from loader and store to adapter' do
       expect(loader).to receive(:each)
-      expect(adapter).to receive(:send)
+      expect(adapter).to receive(:store)
       expect(SlackScratcher.logger).to receive(:info).with(/routed/)
 
       router.route

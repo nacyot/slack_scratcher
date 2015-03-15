@@ -4,12 +4,7 @@ module SlackScratcher
     # @since 0.1
     class Base
       # @ abstract
-      def initialize
-        fail NotImplementedError
-      end
-
-      # @ abstract
-      def send
+      def store
         fail NotImplementedError
       end
 
