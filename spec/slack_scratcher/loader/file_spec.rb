@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe SlackScratcher::Loader::File do
-  before :each do
+  # Setup external data
+
+  before(:each) do
     users_file = '[{"id": "UEHJ8EK18","name": "nacyot"}]'
     channels_file = '[{"id": "CEHJ8EK18","name": "general"}]'
     log_file = '[{ "user": "U03O" }, { "user": "U03O" }]'
@@ -32,6 +34,7 @@ describe SlackScratcher::Loader::File do
   end
 
   describe '#each' do
+    # Mock up chats model
     before(:each) do
       chats_class = SlackScratcher::Model::Chats
       chats_mock = double('chats')
