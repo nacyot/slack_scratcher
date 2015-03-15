@@ -3,9 +3,9 @@ module SlackScratcher
   # to adapter
   #
   # @since 0.0.1
-  # @attr_reader [Boolean] Keep going on loop?
+  # @attr_reader [Boolean] keep_loop Keep going on loop?
   class Router
-    attr_accessor :loop
+    attr_accessor :keep_loop
 
     # Initalize SlackScratcher::Router object
     #
@@ -22,7 +22,7 @@ module SlackScratcher
 
       @loader = loader
       @adapter = adapter
-      @loop = true
+      @keep_loop = true
     end
 
     # Route logs to adapter
@@ -40,11 +40,10 @@ module SlackScratcher
     def route_loop
       ready
       loop do
-        break unless loop
         _route
+        break unless keep_loop
       end
-    rescue Interrupt => error
-      SlackScratcher.logger.info error
+
       false
     end
 

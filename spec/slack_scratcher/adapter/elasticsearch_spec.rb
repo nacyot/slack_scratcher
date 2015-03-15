@@ -36,14 +36,24 @@ describe SlackScratcher::Adapter::Elasticsearch do
     it 'returns false when data is empty' do
       expect(adapter.store([])).to be_falsey
     end
+
+    it "returns false when client's bulk method fail" do
+      allow(client).to receive(:bulk) do
+        fail Elasticsearch::Transport::Transport::Errors::BadRequest
+      end
+
+      expect(adapter.store(%w(data))).to be_falsey
+    end
   end
 
   describe '#ready_index' do
     it 'create index and returns true when there is not index' do
       allow(client).to receive_message_chain(:indices, :exists) { false }
+      allow(client).to receive_message_chain(:indices, :create) { true }
+      allow(client).to receive_message_chain(:indices, :put_mapping) { true }
 
-      expect(adapter).to receive(:create_index)
-      expect(adapter).to receive(:put_mapping)
+      expect(adapter).to receive(:create_index).and_call_original
+      expect(adapter).to receive(:put_mapping).and_call_original
       expect(adapter.ready_index).to be_truthy
     end
 

@@ -20,7 +20,7 @@ module SlackScratcher
       # @return [SlackScratcher::Loader::Api] Api loader object
       def initialize(token = nil, wait_time = 30)
         @wait_time = wait_time
-        authenticate_slack(token)
+        authenticate_slack token
       end
 
       # Iterate all log data which is parsed from Slack API.

@@ -49,7 +49,8 @@ module SlackScratcher
         return client.bulk data unless raw_data.empty?
         false
       rescue ::Elasticsearch::Transport::Transport::Errors::BadRequest => error
-        puts error
+        SlackScratcher.logger.error error
+        false
       end
 
       # Create index and set mapping for saving slack log data

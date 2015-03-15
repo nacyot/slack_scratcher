@@ -52,4 +52,11 @@ describe SlackScratcher::Router do
       router.route
     end
   end
+
+  describe '#route_loop' do
+    it 'return false when loop is false' do
+      allow(router).to receive(:keep_loop).and_return(false)
+      expect(router.route_loop).to be_falsey
+    end
+  end
 end
