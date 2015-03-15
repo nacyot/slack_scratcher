@@ -6,11 +6,6 @@ module SlackScratcher
       include Enumerable
 
       # @ abstract
-      def initialize
-        fail NotImplementedError
-      end
-
-      # @ abstract
       def each
         fail NotImplementedError
       end
