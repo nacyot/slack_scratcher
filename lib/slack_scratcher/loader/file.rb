@@ -60,8 +60,8 @@ module SlackScratcher
       def load(target, index_column)
         fail SlackScratcher::Error::FileNotFound unless ::File.exist? target
 
-        channels = Oj.load(::File.read(target))
-        SlackScratcher::Helper.index_data channels, index_column
+        contents = Oj.load(::File.read(target))
+        SlackScratcher::Helper.index_data contents, index_column
       end
 
       # @private
@@ -74,6 +74,7 @@ module SlackScratcher
       def parse_log_file(log_file)
         channel = channel_info(log_file)
         logs = Oj.load(::File.read(log_file))
+
         SlackScratcher::Model::Chats.new(logs, channel, @users).refined_data
       end
 
@@ -86,7 +87,7 @@ module SlackScratcher
 
       # @private
       def channel_dirs
-        Dir["#{@target}/*/"]
+        Dir["#{@target}*/"]
       end
 
       # @private

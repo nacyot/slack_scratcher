@@ -37,7 +37,7 @@ describe SlackScratcher::Router do
       router.route
     end
 
-    it 'when there is data, read from loader and send to adapter' do
+    specify 'when there is data, read from loader and send to adapter' do
       expect(loader).to receive(:each)
       expect(adapter).to receive(:send)
       expect(SlackScratcher.logger).to receive(:info).with(/routed/)
@@ -45,7 +45,7 @@ describe SlackScratcher::Router do
       router.route
     end
 
-    it 'when data is empty, nothing happen' do
+    specify 'when data is empty, nothing happen' do
       allow(loader).to receive(:each).and_yield([], {})
       expect(SlackScratcher.logger).to receive(:info).with(/empty/)
 
