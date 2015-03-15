@@ -6,9 +6,6 @@ module SlackScratcher
     #
     # @since 0.1
     class Api < SlackScratcher::Loader::Base
-      # Duration of waiting between API call
-      WAIT_TIME = 1
-
       # Initialize SlackScratcher::Loader::Api object.
       #
       # @see https://api.slack.com/web
@@ -21,7 +18,8 @@ module SlackScratcher
       #   SlackScratcher::Loader::Api.new token
       #
       # @return [SlackScratcher::Loader::Api] Api loader object
-      def initialize(token = nil)
+      def initialize(token = nil, wait_time = 30)
+        @wait_time = wait_time
         authenticate_slack(token)
       end
 
@@ -64,9 +62,7 @@ module SlackScratcher
       # @private
       def parse_log(channel, from)
         logs = channel_history(channel[:id], from)
-        if check_users(logs)
-          set_users
-        end
+        set_users if check_users(logs)
         SlackScratcher::Model::Chats.new(logs, channel, @users).refined_data
       end
 
@@ -132,7 +128,7 @@ module SlackScratcher
 
       # @private
       def wait
-        sleep WAIT_TIME
+        sleep @wait_time
       end
     end
   end
